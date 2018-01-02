@@ -1,0 +1,205 @@
+body {
+    margin: 0;
+    height: 100%;
+}
+
+
+
+
+
+header {
+    position: relative;
+}
+
+header div {
+    background-color: darkblue;
+    height: 5px;
+}
+#logo {
+    margin: 12px 200px 10px 60px;
+}
+
+header p {
+   text-align: right;
+    position: absolute;
+    top: 0px;
+    right: 250px;
+    color: #0089DE;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: unset;
+}
+
+header button {
+    background-color: #C60936;
+    width: 165px;
+    height: 48px;
+    margin: 0 auto;
+    font-family: fantasy;
+    color: white;
+    position: absolute;
+    top: 15px;
+    right: 65px;
+    font-size: larger;
+    font-weight: 700;
+    box-shadow: inset 0px 1px 3px 0px white;
+    border-radius: 5px;
+    border-color: #c60936;
+    cursor: pointer;
+}
+
+
+header button:hover {
+   background-color: #9C002A;
+}
+
+
+
+
+#welcome {
+    background-color: #004272;
+    width: 100%;
+    height: 457px;
+}
+#fline {
+    font-family: fantasy;
+    font-size: 60px;
+    font-weight: 800;
+    color: white;
+    margin: 0;
+    padding-top: 70px;
+}
+#sline {
+    font-family: fantasy;
+    font-size: 40px;
+    font-weight: 600;
+    color: white;
+}
+
+#welcome div {
+   position: relative;
+   margin: 50px 0;
+}
+
+
+#welcome button{
+    background-color: #C60936;
+    width: 150px;
+    height: 50px;
+    margin: 0 auto;
+    font-family: fantasy;
+    font-weight: 700;
+    font-size: larger;
+    color: white;
+    display: block;
+    box-shadow: inset 0px 1px 3px 0px white;
+    border-radius: 5px;
+    border-color: #c60936;
+    cursor: pointer;
+}
+
+#welcome button:hover {
+   background-color: #9C002A;
+}
+
+#welcome img {
+    position: absolute;
+    right: 70px;
+    top: 0px;
+
+}
+
+
+
+
+
+
+
+#content h1 {
+    font-family: fantasy;
+    font-size: 50px;
+    font-weight: 700;
+    color: #0089DE;
+    margin: 0;
+    padding-bottom: 40px;
+}
+
+
+.box1 {
+    width:fit-content;width:-moz-fit-content;width:-webket-fit-content;margin:auto;
+}
+
+
+
+.box {
+        display: inline-block;
+        height: 170px;
+        width: 300px;
+        vertical-align: top;
+        margin-left: 20px;
+}
+
+
+
+
+#content img {
+    vertical-align: top;
+}
+
+.box p {
+    margin: 0;
+    display : inline-block;
+    font-size: 18px;
+}
+
+.box span {
+    font-size: 23px;
+    font-weight: 600;
+}
+
+
+
+
+
+
+
+footer {
+    background-color: #004272;
+    margin-top: 40px;
+    padding-bottom: 5px;
+}
+
+#line {
+    background-color: #0089DE;
+    height: 12px;
+}
+
+hr {
+    margin: 0;
+    color: #0089DE;
+}
+
+#text {
+    margin: 0 6%;
+}
+
+#legal {
+    color: white;
+    font-size: large;
+    font-weight: normal;
+}
+
+#copyright {
+    color: white;
+    font-size: smaller;
+    font-weight: bolder;
+}
+
+footer span {
+    color: #0089DE;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}

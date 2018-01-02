@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@android:color/white"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:layout_marginTop="20dp"
+    android:layout_height="40dp">
+
+    <TextView
+        android:id="@+id/symbol"
+        android:layout_width="0dp"
+        android:gravity="left"
+        android:textSize="20dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="fsafas"
+        />
+
+    <TextView
+        android:id="@+id/lastprice"
+        android:textSize="20dp"
+        android:layout_width="0dp"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:text="fsafas"
+        android:layout_weight="1"
+        />
+
+    <TextView
+        android:id="@+id/change"
+        android:layout_width="0dp"
+        android:textSize="20dp"
+        android:gravity="right"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="fsafas"
+        />
+</LinearLayout>

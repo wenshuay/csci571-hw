@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+   
+</head>
+
+<body>
+    
+    <h2 style="text-align : center;margin-top: 100px;">Enter URL for Airlines List Json File</h2>
+    <form>
+        
+        <input  id="filename" type="text" name="filename" style="margin : 0 auto; display : block ">
+        <br>
+        <input type="submit" value="Submit Query" style="margin : 0 auto; display : block " onClick = "viewJson(this.form)">
+        <br>
+        
+    </form>
+    
+    <script type="text/javascript">
+            function viewJson(form) {
+                
+                var filename = form.filename.value;
+                if (filename =="") {
+                    alert("please provide a JSON file");
+                    throw "please enter a filename";
+                }
+                
+                function loadJson(filename) {
+                
+                    if (window.XMLHttpRequest) {
+                            // code for IE7+, Firefox, Chrome, Opera, Safari
+                        xmlhttp=new XMLHttpRequest();
+                    } else {
+                            // code for IE6, IE5
+                        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+
+                    xmlhttp.open("GET", filename, false);
+                    
+                    
+                    try{
+                        xmlhttp.send();
+                    } catch (eception) {
+                         alert("JSON file does not exist");
+                         throw "No file is found";
+                    }
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 404) {
+                        alert("JSON file does not exist.");
+                        throw "No file is found";
+                    }
+                    var jsonFile = xmlhttp.responseText;
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 404) {
+                        alert("JSON file does not exist.");
+                        throw "No file is found";
+                    }
+                   
+                    if (jsonFile == ("Cannot GET /" + filename)) {
+                        alert("JSON file does not exist");
+                        throw "No file is found";
+                    }
+                   
+                    return jsonFile;
+                    
+              /*      try{
+                        xmlhttp.send();
+                    } catch (eception) {
+                         ;
+                    }
+                     
+                    var jsonFile = xmlhttp.responseText;
+                    
+                    try {
+                        var jsFile = JSON.parse(jsonFile);
+                    } catch(exception) {
+                        alert("No file is found");
+                    }
+                    
+                    return jsFile;  */
+                }
+                
+                
+                var jsondoc = loadJson(filename);
+                try {
+                    var js = JSON.parse(jsondoc);
+                } catch(exception) {
+                    alert("JSON file is invalid");
+                    throw "JSON file is invalid";
+                }
+                
+                
+              
+                
+                // var js = loadJson(filename);
+               
+                try {
+                    var htmltext = generateHTML(js);
+                } catch (exception) {
+                    if (exception != "1") {
+                        
+                        alert("JSON file is invalid");
+                        throw "JSON file is invalid";
+                    } else {
+                        throw "JSON file containing NO airline companies";
+                    }
+                    
+                }
+                
+                var newwindow = window.open("", "US Airlines Listings", "height = 1000, width = 1050");
+                newwindow.document.write(htmltext);
+                
+                function generateHTML(jsfile) {
+                     var header = jsfile.Mainline.Table.Header.Data;
+                     var row = jsfile.Mainline.Table.Row;
+               
+                if (row == undefined) {
+                    alert("JSON file containing NO airline companies");
+                    throw "1";
+                }
+                    var text = "<html><head><title>US Airlines Listings</title></head><body><table border='2'> <tr>";
+                    
+                    for (i = 0; i <= header.length - 1; i++) {
+                        text += "<th>" + header[i] + "</th>";
+                    }
+                    text += "</tr>";
+                    
+                    for (j =0; j <= row.length - 1; j++) {
+                        var each = row[j];
+                        text += "<tr> <td>" + each.Airline + "</td>";
+                        text += "<td>" + each.IATA + "</td>";
+                        
+                        var hub = each.Hubs.Hub;
+                        text += "<td><ul>"
+                        for ( k = 0;  k <= hub.length - 1; k++) {
+                            if (k == 0) {
+                                text += "<li><b>" + hub[k] + "</b></li>";
+                            } else {
+                                text += "<li>" + hub[k] + "</li>";
+                            }
+                            
+                        }
+                        text += "</ul></td>";
+                        
+                        text += "<td><p>" + each.Notes + "</p></td>";
+                        text += "<td><a href='" + each.HomePage + "'>"+ each.HomePage + "</a></td>";
+                        
+                       
+                        text += "<td><img src = '" + each.Plane + "'width = '250' height = '150'></td></tr>";
+                        
+                        
+                    }
+                    
+                    text += "</table>";
+                    text += "<NOSCRIPT></body></html>";
+                    return text;
+                }
+          
+            
+        }
+    </script>
+    <NOSCRIPT>
+</body>
+
+
+</html>

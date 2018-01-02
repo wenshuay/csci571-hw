@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+
+    <title>home work</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+</head>
+
+
+<body>
+
+
+    <div id="Price" class="detail3"></div>
+    
+   <div class="tu" id="SMA" ></div>
+   <div class="tu" id="EMA"></div>
+  <div class="tu" id="STOCH" ></div>
+                        <div class="tu" id="RSI" ></div>
+                        <div class="tu" id="ADX" ></div>
+                        <div class="tu" id="CCI" ></div>
+                        <div class="tu" id="BBANDS" ></div>
+                        <div class="tu" id="MACD"></div>
+
+
+    <script>
+        var furl;
+        
+        
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
+                vars[key] = value;
+            });
+            return vars;
+        }
+        
+        var selete = getUrlVars();
+        console.log(selete);
+        
+        var sever = "http://wenshuay-env.us-east-2.elasticbeanstalk.com/";
+
+        $(document).ready(function() {
+            if (selete["data"] == "Price") {
+                
+                  $.ajax({
+                    url: sever,
+                    data: {
+                        symbol: selete['sy'],
+                        data: "price"
+                    },
+
+                    type: "GET",
+                    datatype: 'json',
+
+
+                    success: function(response, status, xhr) {
+
+
+                        if (response == null || response["Time Series (Daily)"] == undefined) {
+                            $("#Price").html("<div class='alert alert-danger' role='alert'>Error!Failed to get historical charts data.</div>");
+                            
+                            return;
+                        }
+                        
+
+                        showPriceChart(response, selete['sy']);
+                        //Android.hide();
+                       
+
+                    },
+                    error: function(xhr, status, error) {
+                        $("#Price").html("<div class='alert alert-danger' role='alert'>Error!Failed to get historical charts data.</div>");
+                        //Android.hide();
+                        
+                    }
+                });
+                
+            } else if (selete["data"] == "SMA") {
+                
+                 $.ajax({
+                    url: sever,
+                    data: {
+                        symbol: selete['sy'],
+                        data: "SMA"
+                    },
+
+                    type: "GET",
+                    datatype: 'json',
+
+
+                    success: function(response, status, xhr) {
+                        
+                        indicatorShow(response, "SMA", selete['sy']);
+                        //Android.hide();
+
+
+                    },
+                    error: function(xhr, status, error) {
+                        $("#Price").html("<div class='alert alert-danger' role='alert'>Error!Failed to get historical charts data.</div>");
+                        //Android.hide();
+                    }
+                });
+                       
+            } else if (selete["data"] == "EMA") {
+                
+                
+                $.ajax({
+                    url: sever,
+                    data: {
+                        symbol: selete['sy'],
+                        data: "EMA"
+                    },
+
+                    type: "GET",
+                    datatype: 'json',
+
+
+                    success: function(response, status, xhr) {
+
+                        
+                        indicatorShow(response, "EMA", selete['sy']);
+                        //Android.hide();
+
+                    },
+                    error: function(xhr, status, error) {
+                        $("#Price").html("<div class='alert alert-danger' role='alert'>Error!Failed to get historical charts data.</div>");
+                       // Android.hide();
+                    }
+                });
+                
+                       
+            }else if (selete["data"] == "RSI") {
+                
+                $.ajax({
+                    url: sever,
+                    data: {
+                        symbol: selete['sy'],
+                        data: "RSI"
+                    },
+
+                    type: "GET",
+                    datatype: 'json',
+
+
+                    success: function(response, status, xhr) {
+
+                        
+                        indicatorShow(response, "RSI", selete['sy']);
+                        //Android.hide();
+
+                    },
+                    error: function(xhr, status, error) {
+                         $("#Price").html("<div class='alert alert-danger' role='alert'>Error!Failed to get historical charts data.</div>");
+                         //Android.hide();
+                    }
+                });
+                       
+            }else if (selete["data"] == "ADX") {
+                
+                 $.ajax({
+                    url: sever,
+                    data: {
+                        symbol: selete['sy'],
+                        data: "ADX"
+                    },
+
+                    type: "GET",
+                    datatype: 'json',
+
+
+                    success: function(response, status, xhr) {
+
+                       
+                        indicatorShow(response, "ADX", selete['sy']);
+                        //Android.hide();
+
+                    },
+                    error: function(xhr, status, error) {
+                        $("#Price").html("<div class='alert alert-danger' role='alert'>Error!Failed to get historical charts data.</div>");
+                        //Android.hide();
+                    }
+                });
+                
+                       
+            }else if (selete["data"] == "CCI") {
+                
+                $.ajax({
+                    url: sever,
+                    data: {
+                        symbol: selete['sy'],
+                        data: "CCI"
+                    },
+
+                    type: "GET",
+                    datatype: 'json',
+
+
+                    success: function(response, status, xhr) {
+
+                        
+                        indicatorShow(response, "CCI", selete['sy']);
+                        //Android.hide();
+
+                    },
+                    error: function(xhr, status, error) {
+                         $("#Price").html("<div class='alert alert-danger' role='alert'>Error!Failed to get historical charts data.</div>");
+                         //Android.hide();
+                    }
+                });
+                       
+            }else if (selete["data"] == "STOCH") {
+                
+                 $.ajax({
+                    url: sever,
+                    data: {
+                        symbol: selete['sy'],
+                        data: "STOCH"
+                    },
+
+                    type: "GET",
+                    datatype: 'json',
+
+
+                    success: function(response, status, xhr) {
+
+                        console.log(response);
+                        indicatorShow1(response, "STOCH", selete['sy'])
+                        //Android.hide();
+
+
+                    },
+                    error: function(xhr, status, error) {
+                        $("#Price").html("<div class='alert alert-danger' role='alert'>Error!Failed to get historical charts data.</div>");
+                        //Android.hide();
+                    }
+                });
+                       
+            }else if (selete["data"] == "BBANDS") {
+                
+                $.ajax({
+                    url: sever,
+                    data: {
+                        symbol: selete['sy'],
+                        data: "BBANDS"
+                    },
+
+                    type: "GET",
+                    datatype: 'json',
+
+
+                    success: function(response, status, xhr) {
+
+                        console.log(response);
+                        indicatorShow2(response, "BBANDS", selete['sy']);
+                        //Android.hide();
+
+                    },
+                    error: function(xhr, status, error) {
+                         $("#Price").html("<div class='alert alert-danger' role='alert'>Error!Failed to get historical charts data.</div>");
+                         //Android.hide();
+                    }
+                });
+                       
+            }else if (selete["data"] == "MACD") {
+                
+                $.ajax({
+                    url: sever,
+                    data: {
+                        symbol: selete['sy'],
+                        data: "MACD"
+                    },
+
+                    type: "GET",
+                    datatype: 'json',
+
+
+                    success: function(response, status, xhr) {
+
+                        console.log(response);
+                        indicatorShow3(response, "MACD", selete['sy']);
+                        //Android.hide();
+
+                    },
+                    error: function(xhr, status, error) {
+                        $("#Price").html("<div class='alert alert-danger' role='alert'>Error!Failed to get historical charts data.</div>");
+                       // Android.hide();
+                    }
+                });
+                       
+            }
+          
+
+
+        })
+        
+        
+        
+         function showPriceChart(jsFile, symbol) {
+            var keyname = "Time Series (Daily)";
+            var h = jsFile[keyname];
+            var xlabel = [];
+            var value = [];
+            var price = [];
+
+            var n = 0;
+            for (var key in h) {
+
+                var s = key.split("-");
+                var d = "";
+                d = s[1] + "/" + s[2].substring(0, 2);
+                xlabel.push(d);
+
+                value.push(Number(h[key]["5. volume"]));
+                price.push(Number(h[key]['4. close']));
+
+                n++;
+                if (n == 131) {
+                    break;
+                }
+
+            }
+
+            xlabel.reverse();
+            value.reverse();
+            price.reverse();
+            console.log(xlabel);
+            console.log(value);
+            console.log(price);
+
+            Highcharts.chart('Price', {
+                title: {
+                    text: symbol + ' Stock Price and Volume'
+                },
+                subtitle: {
+                    useHTML: true,
+                    text: '<a href=\"https://www.alphavantage.co/\" target=\"_blank\" style=\" color:blue\">Source:Alpha Vantage</a>'
+                },
+                xAxis: {
+                    categories: xlabel,
+                    tickInterval: 5
+                },
+                chart: {
+                    backgroundColor: null,
+                    zoomType: 'x',
+
+                },
+                yAxis: [{ // Primary yAxis
+                    labels: {},
+                    title: {
+                        text: 'Stock Price',
+                    },
+
+
+                }, { // Secondary yAxis
+                    title: {
+                        text: 'Volume',
+                    },
+
+
+                    opposite: true
+                }],
+                legend: {
+
+                },
+                plotOptions: {
+
+                },
+
+                series: [{
+                        name: "Price",
+                        type: 'area',
+
+                        color: '#779aea',
+                        marker: {
+                            enabled: false
+                        },
+                        data: price
+                    },
+                    {
+                        name: "Volume",
+                        type: 'column',
+                        data: value,
+                        yAxis: 1,
+                        color: '#ef2828',
+                        pointWidth: 1,
+                    }
+                ]
+            });
+             
+             var graph = {
+                title: {
+                    text: symbol + ' Stock Price and Volume'
+                },
+                subtitle: {
+                    useHTML: true,
+                    text: '<a href=\"https://www.alphavantage.co/\" target=\"_blank\" style=\" color:blue\">Source:Alpha Vantage</a>'
+                },
+                xAxis: {
+                    categories: xlabel,
+                    tickInterval: 5
+                },
+                chart: {
+                    backgroundColor: null,
+                    zoomType: 'x',
+
+                },
+                yAxis: [{ // Primary yAxis
+                    labels: {},
+                    title: {
+                        text: 'Stock Price',
+                    },
+
+
+                }, { // Secondary yAxis
+                    title: {
+                        text: 'Volume',
+                    },
+
+
+                    opposite: true
+                }],
+                legend: {
+
+                },
+                plotOptions: {
+
+                },
+
+                series: [{
+                        name: "Price",
+                        type: 'area',
+
+                        color: '#779aea',
+                        marker: {
+                            enabled: false
+                        },
+                        data: price
+                    },
+                    {
+                        name: "Volume",
+                        type: 'column',
+                        data: value,
+                        yAxis: 1,
+                        color: '#ef2828',
+                        pointWidth: 1,
+                    }
+                ]
+            }
+             
+             var data = {
+                 options: JSON.stringify(graph),
+                  filename: "graph",
+                type: 'image/png',
+                async: true
+                };
+            var exportUrl = 'http://export.highcharts.com/';
+            $.post(exportUrl, data, function(data) {
+                        furl = exportUrl + data;
+                        Android.getUrl(furl);
+                        
+                    });
+             
+             
+        }
+        
+        
+        
+         function indicatorShow(jsFile, indicator, symbol) {
+            if (jsFile == null || jsFile["Meta Data"] == undefined) {
+                var clname = "#" + indicator;
+                $(clname).html("<div class='alert alert-danger' role='alert'>Error!Failed to get historical charts data.</div>");
+                return;
+            }
+            var clname = "#" + indicator;
+            $(clname).html("");
+
+            var data = new Array();
+            var keyname = "Technical Analysis: " + indicator;
+            var h = jsFile[keyname];
+            var name = jsFile["Meta Data"]["2: Indicator"];
+            var n = 0;
+            for (var key in h) {
+                var each = new Array();
+
+
+                var s = key.split("-");
+                var d = "";
+                d = s[1] + "/" + s[2].substring(0, 2);
+                each.push(d);
+
+
+                each.push(Number(h[key][indicator]));
+                data.push(each);
+                n++;
+                if (n == 131) {
+                    break;
+                }
+
+            }
+
+            data.reverse();
+
+
+
+
+            Highcharts.chart(indicator, {
+                chart: {
+                    type: 'line',
+                    zoomType: 'x'
+                },
+                title: {
+                    text: name
+                },
+                subtitle: {
+                    useHTML: true,
+                    text: '<a href="https://www.alphavantage.co/" target=\"_blank\" style=\" color:blue\">' +
+                        'Source: Alpha Vantage</a>'
+                },
+                xAxis: {
+
+                    type: 'category',
+                    tickInterval: 5
+
+                },
+                yAxis: {
+                    title: {
+                        text: indicator,
+                    }
+                },
+                legend: {
+
+                },
+                plotOptions: {
+                    series: {
+
+                        lineWidth: 1,
+                    },
+                    line: {
+
+                        color: '#FF0000'
+
+                    }
+                },
+                series: [{
+                    name: symbol,
+                    data: data
+                }, ]
+            });
+             
+             var graph = {
+                chart: {
+                    type: 'line',
+                    zoomType: 'x'
+                },
+                title: {
+                    text: name
+                },
+                subtitle: {
+                    useHTML: true,
+                    text: '<a href="https://www.alphavantage.co/" target=\"_blank\" style=\" color:blue\">' +
+                        'Source: Alpha Vantage</a>'
+                },
+                xAxis: {
+
+                    type: 'category',
+                    tickInterval: 5
+
+                },
+                yAxis: {
+                    title: {
+                        text: indicator,
+                    }
+                },
+                legend: {
+
+                },
+                plotOptions: {
+                    series: {
+
+                        lineWidth: 1,
+                    },
+                    line: {
+
+                        color: '#FF0000'
+
+                    }
+                },
+                series: [{
+                    name: symbol,
+                    data: data
+                }, ]
+            };
+             
+             
+              var data = {
+                 options: JSON.stringify(graph),
+                  filename: "graph",
+                type: 'image/png',
+                async: true
+                };
+            var exportUrl = 'http://export.highcharts.com/';
+            $.post(exportUrl, data, function(data) {
+                        furl = exportUrl + data;
+                        Android.getUrl(furl);
+                        
+                    });
+
+
+
+        }
+
+        function indicatorShow1(jsFile, indicator, symbol) {
+            if (jsFile == null || jsFile["Meta Data"] == undefined) {
+                var clname = "#" + indicator;
+                $(clname).html("<div class='alert alert-danger' role='alert'>Error!Failed to get historical charts data.</div>");
+                return;
+            }
+            var clname = "#" + indicator;
+            $(clname).html("");
+
+
+            var keyname = "Technical Analysis: STOCH";
+            var h = jsFile[keyname];
+            var xlabel = [];
+            var name = jsFile["Meta Data"]["2: Indicator"];
+            var sk = [];
+            var sd = [];
+            var n = 0;
+            for (var key in h) {
+
+                var s = key.split("-");
+                var d = "";
+                d = s[1] + "/" + s[2].substring(0, 2);
+                xlabel.push(d);
+
+                sk.push(Number(h[key]["SlowK"]));
+                sd.push(Number(h[key]["SlowD"]));
+
+                n++;
+                if (n == 131) {
+                    break;
+                }
+
+            }
+
+            xlabel.reverse();
+            sk.reverse();
+            sd.reverse();
+
+            Highcharts.chart(indicator, {
+                chart: {
+
+                    zoomType: 'x',
+                },
+                title: {
+                    text: name
+                },
+                subtitle: {
+                    useHTML: true,
+                    text: '<a href="https://www.alphavantage.co/" target=\"_blank\" style=\" color:blue\">' +
+                        'Source: Alpha Vantage</a>'
+                },
+                xAxis: {
+
+                    categories: xlabel,
+                    tickInterval: 5
+
+                },
+                yAxis: {
+                    title: {
+                        text: indicator,
+                    }
+                },
+                legend: {
+
+                },
+                plotOptions: {
+                    series: {
+
+                        lineWidth: 1,
+                    },
+                },
+                series: [{
+                        type: 'line',
+                        name: symbol + " SlowK",
+                        data: sk
+                    },
+                    {
+                        type: 'line',
+                        name: symbol + " SlowD",
+                        data: sd
+                    }
+                ]
+            });
+
+
+            var graph = {
+                chart: {
+
+                    zoomType: 'x',
+                },
+                title: {
+                    text: name
+                },
+                subtitle: {
+                    useHTML: true,
+                    text: '<a href="https://www.alphavantage.co/" target=\"_blank\" style=\" color:blue\">' +
+                        'Source: Alpha Vantage</a>'
+                },
+                xAxis: {
+
+                    categories: xlabel,
+                    tickInterval: 5
+
+                },
+                yAxis: {
+                    title: {
+                        text: indicator,
+                    }
+                },
+                legend: {
+
+                },
+                plotOptions: {
+                    series: {
+
+                        lineWidth: 1,
+                    },
+                },
+                series: [{
+                        type: 'line',
+                        name: symbol + " SlowK",
+                        data: sk
+                    },
+                    {
+                        type: 'line',
+                        name: symbol + " SlowD",
+                        data: sd
+                    }
+                ]
+            };
+            
+             var data = {
+                 options: JSON.stringify(graph),
+                  filename: "graph",
+                type: 'image/png',
+                async: true
+                };
+            var exportUrl = 'http://export.highcharts.com/';
+            $.post(exportUrl, data, function(data) {
+                        furl = exportUrl + data;
+                        Android.getUrl(furl);
+                        
+                    });
+            
+            
+
+        }
+
+        function indicatorShow2(jsFile, indicator, symbol) {
+            if (jsFile == null || jsFile["Meta Data"] == undefined) {
+                var clname = "#" + indicator;
+                $(clname).html("<div class='alert alert-danger' role='alert'>Error!Failed to get historical charts data.</div>");
+                return;
+            }
+            var clname = "#" + indicator;
+            $(clname).html("");
+
+            var keyname = "Technical Analysis: BBANDS";
+            var h = jsFile[keyname];
+            var xlabel = [];
+            var name = jsFile["Meta Data"]["2: Indicator"];
+            var u = [];
+            var l = [];
+            var m = [];
+            var n = 0;
+            for (var key in h) {
+
+                var s = key.split("-");
+                var d = "";
+                d = s[1] + "/" + s[2].substring(0, 2);
+                xlabel.push(d);
+
+                u.push(Number(h[key]["Real Upper Band"]));
+                l.push(Number(h[key]["Real Lower Band"]));
+                m.push(Number(h[key]["Real Middle Band"]));
+                n++;
+                if (n == 131) {
+                    break;
+                }
+
+            }
+
+            xlabel.reverse();
+            u.reverse();
+            l.reverse();
+            m.reverse();
+            Highcharts.chart(indicator, {
+                chart: {
+
+                    zoomType: 'x',
+                },
+                title: {
+                    text: name
+                },
+                subtitle: {
+                    useHTML: true,
+                    text: '<a href="https://www.alphavantage.co/" target=\"_blank\" style=\" color:blue\">' +
+                        'Source: Alpha Vantage</a>'
+                },
+                xAxis: {
+
+                    categories: xlabel,
+                    tickInterval: 5
+
+                },
+                yAxis: {
+                    title: {
+                        text: indicator,
+                    }
+                },
+                legend: {
+
+                },
+                plotOptions: {
+                    series: {
+
+                        lineWidth: 1,
+                    },
+                },
+                series: [{
+                        type: 'line',
+                        name: symbol + " Real Upper Band",
+                        data: u
+                    },
+                    {
+                        type: 'line',
+                        name: symbol + " Real Lower Band",
+                        data: l
+                    },
+                    {
+                        type: 'line',
+                        name: symbol + " Real Middle Band",
+                        data: m
+                    }
+                ]
+            });
+            
+            
+            var graph = {
+                chart: {
+
+                    zoomType: 'x',
+                },
+                title: {
+                    text: name
+                },
+                subtitle: {
+                    useHTML: true,
+                    text: '<a href="https://www.alphavantage.co/" target=\"_blank\" style=\" color:blue\">' +
+                        'Source: Alpha Vantage</a>'
+                },
+                xAxis: {
+
+                    categories: xlabel,
+                    tickInterval: 5
+
+                },
+                yAxis: {
+                    title: {
+                        text: indicator,
+                    }
+                },
+                legend: {
+
+                },
+                plotOptions: {
+                    series: {
+
+                        lineWidth: 1,
+                    },
+                },
+                series: [{
+                        type: 'line',
+                        name: symbol + " Real Upper Band",
+                        data: u
+                    },
+                    {
+                        type: 'line',
+                        name: symbol + " Real Lower Band",
+                        data: l
+                    },
+                    {
+                        type: 'line',
+                        name: symbol + " Real Middle Band",
+                        data: m
+                    }
+                ]
+            };
+            
+             var data = {
+                 options: JSON.stringify(graph),
+                  filename: "graph",
+                type: 'image/png',
+                async: true
+                };
+            var exportUrl = 'http://export.highcharts.com/';
+            $.post(exportUrl, data, function(data) {
+                        furl = exportUrl + data;
+                        Android.getUrl(furl);
+                        
+                    });
+
+
+
+        }
+
+        function indicatorShow3(jsFile, indicator, symbol) {
+            if (jsFile == null || jsFile["Meta Data"] == undefined) {
+                var clname = "#" + indicator;
+                $(clname).html("<div class='alert alert-danger' role='alert'>Error!Failed to get historical charts data.</div>");
+                return;
+            }
+            var clname = "#" + indicator;
+            $(clname).html("");
+
+
+            var keyname = "Technical Analysis: MACD";
+            var h = jsFile[keyname];
+            var xlabel = [];
+            var name = jsFile["Meta Data"]["2: Indicator"];
+            var hi = [];
+            var m = [];
+            var si = [];
+            var n = 0;
+            for (var key in h) {
+
+                var s = key.split("-");
+                var d = "";
+                d = s[1] + "/" + s[2].substring(0, 2);
+                xlabel.push(d);
+
+                hi.push(Number(h[key]["MACD_Hist"]));
+                m.push(Number(h[key]["MACD"]));
+                si.push(Number(h[key]["MACD_Signal"]));
+                n++;
+                if (n == 131) {
+                    break;
+                }
+
+            }
+
+            xlabel.reverse();
+            hi.reverse();
+            m.reverse();
+            si.reverse();
+            Highcharts.chart(indicator, {
+                chart: {
+
+                    zoomType: 'x',
+                },
+                title: {
+                    text: name
+                },
+                subtitle: {
+                    useHTML: true,
+                    text: '<a href="https://www.alphavantage.co/" target=\"_blank\" style=\" color:blue\">' +
+                        'Source: Alpha Vantage</a>'
+                },
+                xAxis: {
+
+                    categories: xlabel,
+                    tickInterval: 5
+
+                },
+                yAxis: {
+                    title: {
+                        text: indicator,
+                    }
+                },
+                legend: {
+
+                },
+                plotOptions: {
+                    series: {
+
+                        lineWidth: 1,
+                    },
+                },
+                series: [{
+                        type: 'line',
+                        name: symbol + " MACD_Hist",
+                        data: hi
+                    },
+                    {
+                        type: 'line',
+                        name: symbol + " MACD",
+                        data: m
+                    },
+                    {
+                        type: 'line',
+                        name: symbol + " MACD_Signal",
+                        data: si
+                    }
+                ]
+            });
+            
+            
+            var graph = {
+                chart: {
+
+                    zoomType: 'x',
+                },
+                title: {
+                    text: name
+                },
+                subtitle: {
+                    useHTML: true,
+                    text: '<a href="https://www.alphavantage.co/" target=\"_blank\" style=\" color:blue\">' +
+                        'Source: Alpha Vantage</a>'
+                },
+                xAxis: {
+
+                    categories: xlabel,
+                    tickInterval: 5
+
+                },
+                yAxis: {
+                    title: {
+                        text: indicator,
+                    }
+                },
+                legend: {
+
+                },
+                plotOptions: {
+                    series: {
+
+                        lineWidth: 1,
+                    },
+                },
+                series: [{
+                        type: 'line',
+                        name: symbol + " MACD_Hist",
+                        data: hi
+                    },
+                    {
+                        type: 'line',
+                        name: symbol + " MACD",
+                        data: m
+                    },
+                    {
+                        type: 'line',
+                        name: symbol + " MACD_Signal",
+                        data: si
+                    }
+                ]
+            };
+            
+            var data = {
+                 options: JSON.stringify(graph),
+                  filename: "graph",
+                type: 'image/png',
+                async: true
+                };
+            var exportUrl = 'http://export.highcharts.com/';
+            $.post(exportUrl, data, function(data) {
+                        furl = exportUrl + data;
+                        Android.getUrl(furl);
+                        
+                    });
+
+
+
+        }
+
+
+    </script>
+
+</body>
+
+
+</html>

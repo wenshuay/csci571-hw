@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/restaurant">
+    tools:context="com.example.yuanw.myapplication.MainActivity">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Stock Market Search"
+        android:textColor="@android:color/white"
+        android:textSize="30sp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/auto"
+        android:layout_width="match_parent"
+        android:text=""
+        android:layout_height="wrap_content" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_marginTop="20dp"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:onClick="sendMessage"
+
+        android:textSize="20sp"
+        android:textColor="@android:color/holo_blue_light"
+        android:text="Get Quote" />
+
+    <TextView
+        android:id="@+id/clear"
+        android:onClick="clear"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@android:color/holo_blue_light"
+        android:text="Clear"/>
+</LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp">
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:layout_marginLeft="40dp"
+            android:text="Favorites"/>
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AutoRefresh"
+            android:layout_marginLeft="60dp"
+            android:id="@+id/automatic"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"/>
+        <ImageView
+
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/clickfresh"
+            android:src="@drawable/sinchronizexxl"
+            />
+        
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Spinner
+        android:id="@+id/sortby"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"
+            android:layout_weight="1"
+            />
+
+        <Spinner
+            android:id="@+id/order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:spinnerMode="dialog"
+            />
+
+
+    </LinearLayout>
+
+    <ListView
+        android:background="@android:color/white"
+        android:id="@+id/favalistview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></ListView>
+
+    <ProgressBar
+        android:id="@+id/favlistprogressBar"
+
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        />
+
+
+</LinearLayout>

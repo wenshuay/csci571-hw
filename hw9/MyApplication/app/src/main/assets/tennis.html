@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+
+    <title>home work</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+</head>
+
+
+<body>
+    <div id="highstockchar" class="detail3" style="height: 400px; "></div>
+     <script>
+           function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,    
+    function(m,key,value) {
+      vars[key] = value;
+    });
+    return vars;
+  }
+         
+var fType = getUrlVars();
+
+console.log(fType);
+
+         var sever = "http://wenshuay-env.us-east-2.elasticbeanstalk.com/";
+         $(document).ready(function() {
+             $.ajax({
+                    url: sever,
+                    data: {
+                        symbol: fType['sy'],
+                        data: "price"
+                    },
+
+                    type: "GET",
+                    datatype: 'json',
+
+
+                    success: function(response, status, xhr) {
+
+
+                        if (response == null || response["Time Series (Daily)"] == undefined) {
+                            $("#Price").html("<div class='alert alert-danger' role='alert'>Error!Failed to get historical charts data.</div>");
+                            $("#pricetable").html("<div class='alert alert-danger' role='alert'>Error!Failed to get historical charts data.</div>");
+                            $("#highstockchar").html("<div class='alert alert-danger' role='alert'>Error!Failed to get historical charts data.</div>");
+                            return;
+                        }
+                        
+                        $("#highstockchar").html("");
+
+                        showStock(response, fType['sy']);
+                         Android.hide();
+
+                    },
+                    error: function(xhr, status, error) {
+
+                        $("#highstockchar").html("<div class='alert alert-danger' role='alert'>Error!Failed to get historical charts data.</div>");
+                           Android.hide();
+
+                    }
+                });
+
+         })
+                           
+                           
+        function showStock(jsFile, symbol) {
+            var keyname = "Time Series (Daily)";
+            var h = jsFile[keyname];
+            var res = [];
+            var n = 0;
+            for (var key in h) {
+
+                var s = key.split("-");
+                var d = Date.UTC(s[0], s[1] - 1, s[2].substring(0, 2));
+                //var d = "";
+                //d = s[1] + "/" + s[2].substring(0,2);
+                //xlabel.push(d);
+                var eachday = [];
+                eachday.push(d);
+                eachday.push(Number(h[key]['4. close']));
+                res.push(eachday);
+                n++;
+                if (n == 1000) {
+                    break;
+                }
+
+            }
+
+            res.reverse();
+            console.log(res)
+            // Create the chart
+
+            Highcharts.stockChart('highstockchar', {
+
+                rangeSelector: {
+                    buttons: [{
+                        type: 'week',
+                        count: 1,
+                        text: '1w'
+                    }, {
+                        type: 'month',
+                        count: 1,
+                        text: '1m'
+                    }, {
+                        type: 'month',
+                        count: 3,
+                        text: '3m'
+                    }, {
+                        type: 'month',
+                        count: 6,
+                        text: '6m'
+                    }, {
+                        type: 'ytd',
+                        text: 'YTD'
+                    }, {
+                        type: 'year',
+                        count: 1,
+                        text: '1y'
+                    }, {
+                        type: 'all',
+                        text: 'All'
+                    }],
+                    selected: 0
+                },
+
+                title: {
+                    text: symbol + ' Stock Vaule'
+                },
+                subtitle: {
+                    useHTML: true,
+                    text: '<a href=\"https://www.alphavantage.co/\" target=\"_blank\" style=\" color:blue\">Source:Alpha Vantage</a>'
+                },
+
+                series: [{
+                    name: symbol,
+                    data: res,
+                    type: 'area',
+                    threshold: null,
+                    tooltip: {
+                        valueDecimals: 2
+                    },
+                    fillColor: {
+                        linearGradient: {
+                            x1: 0,
+                            y1: 0,
+                            x2: 0,
+                            y2: 1
+                        },
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                    }
+                }]
+            });
+        }
+         
+      
+    </script>
+      
+</body>
+
+
+</html>

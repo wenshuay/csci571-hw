@@ -1,0 +1,81 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.yuanw.myapplication.Main2Activity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/back"
+            android:onClick="back"
+            android:src="@drawable/arrow121xxl"/>
+        <TextView
+            android:id="@+id/toobarsymbol"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_height="wrap_content" />
+
+        </android.support.v7.widget.Toolbar>
+
+
+    <RadioGroup
+        android:layout_below="@id/my_toolbar"
+        android:id="@+id/rg_group"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:textColor="@android:color/white"
+            android:id="@+id/curr"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_width = "0dp"
+            android:button="@null"
+            android:gravity="center"
+            android:checked="true"
+            android:text="CURRENT"/>
+
+        <RadioButton
+            android:textColor="@android:color/white"
+            android:id="@+id/hist"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_width = "0dp"
+            android:gravity="center"
+            android:button="@null"
+            android:text="HISTORICAL"/>
+
+        <RadioButton
+            android:textColor="@android:color/white"
+            android:id="@+id/news"
+            android:layout_weight="1"
+            android:layout_height="60dp"
+            android:layout_width = "0dp"
+            android:gravity="center"
+            android:button="@null"
+            android:text="NEWS"/>
+    </RadioGroup>
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rg_group"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+
+
+</RelativeLayout>
